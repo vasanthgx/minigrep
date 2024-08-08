@@ -44,3 +44,27 @@ fn main() {
     println!("In file {}", file_path);
 }
 ```
+
+----
+## Reading the File
+
+Now we’ll add functionality to read the file specified in the file_path argument. First, we need a sample file to test it with: we’ll use a file with a small amount of text over multiple lines with some repeated words. Listing 12-3 has an Emily Dickinson poem that will work well! Create a file called poem.txt at the root level of your project, and enter the poem “I’m Nobody! Who are you?”
+
+First, we bring in a relevant part of the standard library with a use statement: we need std::fs to handle files.
+
+In main, the new statement fs::read_to_string takes the file_path, opens that file, and returns a std::io::Result<String> of the file’s contents.
+
+```rust
+use std::env;
+use std::fs;
+
+fn main() {
+    // --snip--
+    println!("In file {}", file_path);
+
+    let contents = fs::read_to_string(file_path)
+        .expect("Should have been able to read the file");
+
+    println!("With text:\n{contents}");
+}
+```

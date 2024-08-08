@@ -25,3 +25,22 @@ The reason `println!()` was not used in this case is that the `dbg!()` macro pro
 In summary, `dbg!()` is a powerful debugging tool in Rust that can be more informative and convenient to use than `println!()` in certain situations.
 
 ----
+## Saving the Argument Values in Variables
+
+The program is currently able to access the values specified as command line arguments. Now we need to save the values of the two arguments in variables so we can use the values throughout the rest of the program. 
+
+Filename: src/main.rs
+
+```rust
+use std::env;
+
+fn main() {
+    let args: Vec<String> = env::args().collect();
+
+    let query = &args[1];
+    let file_path = &args[2];
+
+    println!("Searching for {}", query);
+    println!("In file {}", file_path);
+}
+```

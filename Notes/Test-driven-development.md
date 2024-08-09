@@ -2,6 +2,7 @@
 ###  TDD Process for Implementing the `search` Function in Rust
 
 **Test-Driven Development (TDD) Steps:**
+
 1. **Write a Failing Test:** Start by writing a test for the functionality you want to implement. In this case, the `search` function is tested to return lines containing a query string from a given text.
 2. **Implement Minimal Code:** Write just enough code to make the test compile and run. Initially, this might involve returning a placeholder value.
 3. **Run the Test and Ensure It Fails:** Run the test to verify that it fails as expected.
@@ -11,6 +12,9 @@
 **Example Implementation:**
 
 1. **Writing the Failing Test:**
+
+    Filename: src/lib.rs
+
    ```rust
    #[cfg(test)]
    mod tests {
@@ -20,9 +24,9 @@
        fn one_result() {
            let query = "duct";
            let contents = "\
-Rust:
-safe, fast, productive.
-Pick three.";
+        Rust:
+        safe, fast, productive.
+        Pick three.";
 
            assert_eq!(vec!["safe, fast, productive."], search(query, contents));
        }
@@ -30,6 +34,9 @@ Pick three.";
    ```
 
 2. **Initial Implementation to Compile the Test:**
+
+    Filename: src/lib.rs
+
    ```rust
    pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
        vec![]
@@ -37,6 +44,9 @@ Pick three.";
    ```
 
 3. **Iterating Through Lines and Searching:**
+
+    Filename: src/lib.rs
+
    ```rust
    pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
        for line in contents.lines() {
@@ -48,6 +58,9 @@ Pick three.";
    ```
 
 4. **Final Implementation of the `search` Function:**
+
+    Filename: src/lib.rs
+
    ```rust
    pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
        let mut results = Vec::new();
@@ -63,6 +76,9 @@ Pick three.";
    ```
 
 5. **Using the `search` Function in the `run` Function:**
+
+    Filename: src/lib.rs
+
    ```rust
    pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
        let contents = fs::read_to_string(config.file_path)?;
@@ -76,4 +92,5 @@ Pick three.";
    ```
 
 **Outcome:**
+
 - After implementing the `search` function, the tests should pass, confirming that the function behaves as expected. This implementation can then be used in the main program to search through files for specific strings. The approach allows for easy refactoring and extension of the code while maintaining confidence in its correctness.
